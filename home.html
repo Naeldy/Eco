@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Denúncias Ecológicas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #map {
+      height: 300px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Denúncias Ecológicas</h1>
+    <div id="map"></div>
+    <form id="denunciaForm">
+      <div class="form-group">
+        <label for="photo">Foto da Denúncia:</label><br>
+        <input type="file" id="photo" accept="image/*" capture="environment">
+      </div>
+      <div class="form-group">
+        <label for="info">Informações sobre a Foto:</label><br>
+        <textarea id="info" rows="4" cols="50"></textarea>
+      </div>
+      <button type="submit">Enviar Denúncia</button>
+    </form>
+  </div>
+
+  <script>
+    // Função para inicializar o mapa
+    function initMap() {
+      // Verifica se o navegador suporta geolocalização
+      if (navigator.geolocation) {
+        // Obtém a localização atual do usuário
+        navigator.geolocation.getCurrentPosition(function(position) {
+          // Cria um objeto de mapa com a localização atual
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: position.coords.latitude, lng: position.coords.longitude},
+            zoom: 15
+          });
+          // Adiciona um marcador na localização atual
+          var marker = new google.maps.Marker({
+            position: {lat: position.coords.latitude, lng: position.coords.longitude},
+            map: map,
+            title: 'Sua Localização'
+          });
+        });
+      }
+    }
+
+    // Função para enviar a denúncia
+    document.getElementById('denunciaForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita o envio padrão do formulário
+      
+      // Aqui você pode implementar o código para enviar a denúncia, por exemplo, enviando os dados para um servidor.
+      // Exemplo:
+      var photo = document.getElementById('photo').files[0]; // Obtém o arquivo da foto
+      var info = document.getElementById('info').value; // Obtém as informações sobre a foto
+
+      // Aqui você pode enviar a foto e as informações para o servidor usando XMLHttpRequest ou outra técnica de envio de dados.
+
+      // Após o envio, você pode redirecionar o usuário para outra página ou exibir uma mensagem de confirmação.
+      alert('Denúncia enviada com sucesso!');
+    });
+  </script>
+  <!-- Carrega a API do Google Maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_MmMFlCO_8RDtkSuSucKS8sbDuLtgixQ&callback=initMap" async defer></script>
+</body>
+</html>

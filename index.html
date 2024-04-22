@@ -56,25 +56,19 @@
     <div class="content">
       <h1>Ecovision</h1>
       <p>Vamos proteger nosso meio ambiente</p>
-      <a href="#" class="custom-button">Clique Aqui</a>
+      <!-- Adicionando um ID ao botão para facilitar a seleção pelo JavaScript -->
+      <a href="home.html" id="openHomePage" class="custom-button">Clique Aqui</a>
     </div>
   </div>
 
   <script>
-    let newWorker;
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').then(reg => {
-        reg.addEventListener('updatefound', () => {
-          newWorker = reg.installing;
-        });
-      });
-      let refreshing;
-      navigator.serviceWorker.addEventListener('controllerchange', function () {
-        if (refreshing) return;
-        window.location.reload();
-        refreshing = true;
-      });
-    }
+    // Adicionando um evento de clique ao botão
+    document.getElementById('openHomePage').addEventListener('click', function(event) {
+      // Prevenindo o comportamento padrão do link (evita que a página seja recarregada)
+      event.preventDefault();
+      // Redirecionando o navegador para a página "home.html"
+      window.location.href = 'home.html';
+    });
   </script>
 
 </body>
